@@ -1,0 +1,5 @@
+const GAMES_CHANNEL_ID = '360599962490372096'
+
+module.exports = {
+  GAMES_CHANNEL_ID
+}

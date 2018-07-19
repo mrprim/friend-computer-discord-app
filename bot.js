@@ -28,8 +28,9 @@ const onMessage = (user, userID, channelID, message, event) => {
 
   if (!message) return messageHandlers.send(bot, userID, 'Do you want to know more about the Computer?')
 
-  let done = false
+  console.log(`${user}:${userID} said: "${message}"`)
 
+  let done = false
   messageHandlers.responses.forEach(({ match, pattern, action }) => {
     if (done) return
     if (match && match === message) {
