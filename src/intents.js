@@ -1,7 +1,7 @@
 const sendMessage = require('./utils/sendMessage')
 const createGame = require('./handlers/createGame')
 
-const responses = [
+const intents = [
   {
     match: 'disconnect',
     action: ({ bot }) => bot.disconnect()
@@ -16,6 +16,4 @@ const responses = [
   }
 ]
 
-module.exports = {
-  responses
-}
+module.exports = intents
