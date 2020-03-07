@@ -1,5 +1,5 @@
 const Discord = require('discord.io')
-const intents = require('./intents')
+const stimuli = require('./stimuli')
 const logger = require('./utils/logger')
 const constants = require('./constants')
 
@@ -30,7 +30,7 @@ const start = (auth) => {
     logger.request(user, userID, message)
 
     let done = false
-    intents.forEach(({ match, pattern, action }) => {
+    stimuli.forEach(({ match, pattern, action }) => {
       if (done) return
       if (match && match === message) {
         action({bot, user, userID, channelID, message, event})
