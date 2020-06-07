@@ -4,12 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node ./build/index.js",
+    "build": "babel ./src -d ./build",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/runtime": "^7.10.2",
+    "jest": "^26.0.1",
+    "standard": "^14.3.4"
+  },
   "dependencies": {
-    "discord.io": "github:woor/discord.io#gateway_v6",
-    "winston": "^2.0.0"
+    "discord.js": "^12.2.0",
+    "regenerator-runtime": "^0.13.5"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   }
 }
