@@ -1,10 +1,9 @@
 // import { log } from '../utils/logger'
 import * as commands from '../commands'
 import { read } from '../data/channels'
+import { log } from '../utils/logger'
 
 const COMMAND_PREFIX = 'fc'
-
-const prefixRegex = new RegExp('^' + COMMAND_PREFIX + '\\s*(.*)', '')
 
 const isThisBot = msg => msg.member.id === msg.client.user.id
 
@@ -16,12 +15,16 @@ export default msg => {
   const channelInfo = read(msg.channel.id) || {}
 
   let valid = false
-  let content = msg.content
+  const words = msg.content.split(' ')
 
-  const prefixMatch = prefixRegex.exec(content)
-  if (prefixMatch) {
+  if (words[0] && words[0].toLowerCase() === COMMAND_PREFIX) {
     valid = true
-    content = prefixMatch[1]
+    words.shift()
+  }
+
+  if (words[0] === `<@!${msg.client.user.id}>`) {
+    valid = true
+    words.shift()
   }
 
   if (channelInfo.isBotOnly) {
@@ -30,9 +33,13 @@ export default msg => {
   }
 
   if (valid) {
-    const words = content.split(' ')
     const command = words.shift()
     const data = words.join(' ')
-    commands[command](msg, data)
+    try {
+      commands[command.toLowerCase()](msg, data)
+    } catch (e) {
+      msg.reply(`[${command}] is not a valid command.`)
+      log(`[${command}] is not a valid command.`)
+    }
   }
 }

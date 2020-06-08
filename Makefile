@@ -12,3 +12,18 @@ build: clean install
 
 start: build
 	npm start
+
+start-prod: build
+	forever stopall
+	forever start -a -l fc.log -o fc.out.log -e fc.err.log build/index.js
+
+deploy:
+	rm -rf deployable
+	mkdir deployable
+	cp -rf src deployable/src
+	cp Makefile deployable/Makefile
+	cp package.json deployable/package.json
+	cp package-lock.json deployable/package-lock.json
+	ssh pi@192.168.1.30 "rm -rf ~/server/friend-computer-discord-app/src"
+	scp -r ~/git/friend-computer-discord-app/deployable/* pi@192.168.1.30:~/server/friend-computer-discord-app/
+	ssh pi@192.168.1.30 'bash -i -c "cd ~/server/friend-computer-discord-app &&  make start-prod"'
