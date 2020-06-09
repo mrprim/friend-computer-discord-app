@@ -26,4 +26,8 @@ deploy:
 	cp package-lock.json deployable/package-lock.json
 	ssh pi@192.168.1.30 "rm -rf ~/server/friend-computer-discord-app/src"
 	scp -r ~/git/friend-computer-discord-app/deployable/* pi@192.168.1.30:~/server/friend-computer-discord-app/
+	rm -rf deployable
 	ssh pi@192.168.1.30 'bash -i -c "cd ~/server/friend-computer-discord-app &&  make start-prod"'
+
+stop-server:
+	ssh pi@192.168.1.30 'bash -i -c "forever stopall"'

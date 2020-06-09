@@ -1,10 +1,10 @@
 import fs from 'fs'
 import path from 'path'
 
-const cache = {}
+export const cache = {}
 
 export const read = (filename, ignoreCache) => {
-  if (cache[filename] & !ignoreCache) {
+  if (cache[filename] && !ignoreCache) {
     return cache[filename]
   }
 

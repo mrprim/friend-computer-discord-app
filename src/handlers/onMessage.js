@@ -1,7 +1,8 @@
 // import { log } from '../utils/logger'
 import * as commands from '../commands'
-import { read } from '../data/channels'
-import { log } from '../utils/logger'
+import { read as readChannels } from '../data/channels'
+import { read as readSettings } from '../data/settings'
+import { err } from '../utils/logger'
 
 const COMMAND_PREFIX = 'fc'
 
@@ -12,7 +13,8 @@ export default msg => {
     return
   }
 
-  const channelInfo = read(msg.channel.id) || {}
+  const settings = readSettings()
+  const channelInfo = readChannels(msg.channel.id) || {}
 
   let valid = false
   const words = msg.content.split(' ')
@@ -33,13 +35,25 @@ export default msg => {
   }
 
   if (valid) {
-    const command = words.shift()
+    const command = words[0] && words.shift().toLowerCase()
+
+    if (!settings.active && command !== 'settings') {
+      return
+    }
+
     const data = words.join(' ')
     try {
-      commands[command.toLowerCase()](msg, data)
+      const handler = commands[command]
+
+      if (!handler) {
+        msg.reply(`[${command}] is not a valid command.`)
+        err(`[${command}] is not a valid command.`)
+        return
+      }
+
+      handler(msg, data)
     } catch (e) {
-      msg.reply(`[${command}] is not a valid command.`)
-      log(`[${command}] is not a valid command.`)
+      err(e)
     }
   }
 }
