@@ -4,8 +4,6 @@ import { read as readChannels } from '../data/channels'
 import { read as readSettings } from '../data/settings'
 import { err } from '../utils/logger'
 
-const COMMAND_PREFIX = 'fc'
-
 const isThisBot = msg => msg.member.id === msg.client.user.id
 
 export default msg => {
@@ -19,7 +17,7 @@ export default msg => {
   let valid = false
   const words = msg.content.split(' ')
 
-  if (words[0] && words[0].toLowerCase() === COMMAND_PREFIX) {
+  if (words[0] && words[0].toLowerCase() === settings.commandPrefix) {
     valid = true
     words.shift()
   }
