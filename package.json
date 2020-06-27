@@ -20,7 +20,8 @@
     "standard": "^14.3.4"
   },
   "dependencies": {
-    "@mrprim/tile-bag": "0.0.1",
+    "@mrprim/random-rpg-stuff": "^1.0.4",
+    "@mrprim/tile-bag": "0.0.12",
     "discord.js": "^12.2.0",
     "regenerator-runtime": "^0.13.5"
   },

@@ -10,7 +10,8 @@ clean:
 build: clean install
 	npm run build
 
-start: build
+start:
+	npm run build
 	npm start
 
 start-prod: build
