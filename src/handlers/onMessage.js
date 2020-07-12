@@ -51,7 +51,7 @@ export default msg => {
 
       handler(msg, data)
     } catch (e) {
-      err(e)
+      err('error handling "' + msg.content + '"', e)
     }
   }
 }

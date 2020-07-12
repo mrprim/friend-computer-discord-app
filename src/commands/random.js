@@ -2,11 +2,9 @@ import getRandom, { names } from '@mrprim/random-rpg-stuff'
 import sample from '../utils/sample'
 
 export default (msg, data) => {
-  const args = data.split(' ')
-  let runs = 1
-  if (!isNaN(args[0])) {
-    runs = args.shift()
-  }
+  let args = data.split(' ')
+  const runs = args.find(a => !isNaN(a)) || 1
+  args = args.filter(a => isNaN(a))
 
   const results = []
   for (let i = 0; i < runs; i++) {
