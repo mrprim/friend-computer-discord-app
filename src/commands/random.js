@@ -12,15 +12,15 @@ export default (msg, data) => {
     const val = getRandom(name, { details: true, format: s => s.toLowerCase() })
     results.push(val)
   }
-  results.sort((a, b) => a.name > b.name ? 1 : -1)
+  results.sort((a, b) => a.generatorName > b.generatorName ? 1 : -1)
 
   let message = ''
   let prevName = ''
   message += '```ini\n'
   results.map(val => {
-    if (val.name !== prevName) {
-      message += `[${val.name.split('.').join(' > ').toLowerCase()}]\n`
-      prevName = val.name
+    if (val.generatorName !== prevName) {
+      message += `[${val.generatorName.split('.').join(' > ').toLowerCase()}]\n`
+      prevName = val.generatorName
     }
     message += `${val.value}\n`
   })
