@@ -3,16 +3,32 @@ import sample from '../utils/sample'
 
 export default (msg, data) => {
   const args = data.split(' ')
-  const name = getName(args)
-  const val = getRandom(name, { details: true, format: s => s.toLowerCase() })
+  let runs = 1
+  if (!isNaN(args[0])) {
+    runs = args.shift()
+  }
+
+  const results = []
+  for (let i = 0; i < runs; i++) {
+    const name = getName(args)
+    const val = getRandom(name, { details: true, format: s => s.toLowerCase() })
+    results.push(val)
+  }
+  results.sort((a, b) => a.name > b.name ? 1 : -1)
+
   let message = ''
+  let prevName = ''
   message += '```ini\n'
-  message += `[${val.name.split('.').join(' > ').toLowerCase()}]\n`
-  message += '\n'
-  message += `${val.value}\n`
+  results.map(val => {
+    if (val.name !== prevName) {
+      message += `[${val.name.split('.').join(' > ').toLowerCase()}]\n`
+      prevName = val.name
+    }
+    message += `${val.value}\n`
+  })
+
   message += '```\n'
   message += ''
-
   msg.channel.send(message)
 }
 
