@@ -22,7 +22,7 @@ export default msg => {
     words.shift()
   }
 
-  if (words[0] === `<@!${msg.client.user.id}>`) {
+  if (words[0] === `<@!${msg.client.user.id}>` || words[0] === `<@${msg.client.user.id}>`) {
     valid = true
     words.shift()
   }
