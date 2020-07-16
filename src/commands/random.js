@@ -1,4 +1,5 @@
 import getRandom, { names } from '@mrprim/random-rpg-stuff'
+import getRandomGeneratorNameMatch from '../utils/getRandomGeneratorNameMatch'
 import sample from '../utils/sample'
 
 export default (msg, data) => {
@@ -31,8 +32,7 @@ export default (msg, data) => {
 }
 
 const getName = args => {
-  const scoredNames = namesArray.map(name => ({ name, score: getScore(name, args) }))
-    .sort((a, b) => a.score > b.score ? -1 : 1)
+  const scoredNames = getRandomGeneratorNameMatch(args.join(' '))
     .filter((scoredName, i, arr) => scoredName.score === arr[0].score)
 
   return sample(scoredNames).name
@@ -53,14 +53,3 @@ const getScore = (name, data) => {
   }
   return score
 }
-
-const getNamesArray = names => Object.values(names).reduce((arr, n) => {
-  if (typeof n === 'string') {
-    arr.push(n)
-  } else {
-    arr.push(...getNamesArray(n))
-  }
-  return arr
-}, [])
-
-const namesArray = getNamesArray(names)
