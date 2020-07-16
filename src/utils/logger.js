@@ -1,8 +1,12 @@
-const PREFIX = '📺 '
-const ERR_PREFIX = '❌ '
+const PREFIX = '📺'
+const ERR_PREFIX = '❌'
 
-export const log = (...msg) => console.log(PREFIX, msg.join(' '))
+const now = () => new Date().toISOString()
 
-export const err = (...msg) => console.log(ERR_PREFIX, msg.join(' '))
+const print = (...msg) => console.log(now(), ...msg)
+
+export const log = (...msg) => print(PREFIX, msg.join(' '))
+
+export const err = (...msg) => print(ERR_PREFIX, msg.join(' '))
 
 export const request = (user, userID, msg) => log(`Incoming Message from ${user}:${userID} - "${msg}"`)
