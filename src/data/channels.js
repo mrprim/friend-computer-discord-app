@@ -8,15 +8,15 @@ export const initialValues = {
   type: ''
 }
 
-const fileName = id => `${TYPE}.${id}.${EXTENSION}`
+const fileName = (serverId, channelId) => `${serverId}.${TYPE}.${channelId}.${EXTENSION}`
 
-export const read = id => {
-  const data = fileread(fileName(id))
+export const read = (serverId, channelId) => {
+  const data = fileread(fileName(serverId, channelId))
   return data && JSON.parse(data)
 }
 
-export const write = (id, data) => {
-  filewrite(fileName(id), { ...initialValues, ...data })
+export const write = (serverId, channelId, data) => {
+  filewrite(fileName(serverId, channelId), { ...initialValues, ...data })
 }
 
 export const remove = channelId => fileRemove(fileName(channelId))

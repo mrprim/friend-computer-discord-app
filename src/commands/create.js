@@ -5,7 +5,7 @@ import { write as writeChannel } from '../data/channels'
 // import { jsonToMessage } from '../utils/formatters'
 
 export default async (msg, data) => {
-  const settings = readServerSettings()
+  const settings = readServerSettings(msg.guild.id)
 
   if (!settings.admins.includes(msg.member.id)) {
     return
@@ -31,7 +31,7 @@ const createSpoiler = async (msg, name) => {
     ]
   })
 
-  writeChannel(spoilerChannel.id, {
+  writeChannel(msg.guild.id, spoilerChannel.id, {
     type: 'SPOILER'
   })
 

@@ -1,4 +1,4 @@
-import getRandom, { names } from '@mrprim/random-rpg-stuff'
+import getRandom from '@mrprim/random-rpg-stuff'
 import getRandomGeneratorNameMatch from '../utils/getRandomGeneratorNameMatch'
 import sample from '../utils/sample'
 
@@ -36,20 +36,4 @@ const getName = args => {
     .filter((scoredName, i, arr) => scoredName.score === arr[0].score)
 
   return sample(scoredNames).name
-}
-
-const getScore = (name, data) => {
-  const nameParts = name.split('.')
-
-  let score = 0
-  data.forEach(d => {
-    if (nameParts.includes(d && d.toUpperCase())) {
-      score++
-    }
-  })
-
-  if (score === nameParts.length) {
-    score = 999
-  }
-  return score
 }

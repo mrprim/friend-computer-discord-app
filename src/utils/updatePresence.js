@@ -1,7 +1,7 @@
 import { read } from '../data/settings'
 
 export default client => {
-  const settings = read()
+  const settings = read(client.guild.id)
 
   if (settings.active) {
     client.user.setPresence({

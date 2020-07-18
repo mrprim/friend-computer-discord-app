@@ -4,18 +4,19 @@ const TYPE = 'server-settings'
 const EXTENSION = 'json'
 
 export const initialValues = {
-  active: true
+  active: true,
+  commandPrefix: '/fc'
 }
 
-const fileName = `${TYPE}.${EXTENSION}`
+const fileName = serverId => `${serverId}.${TYPE}.${EXTENSION}`
 
-export const read = () => {
-  const data = fileread(fileName)
+export const read = serverId => {
+  const data = fileread(fileName(serverId))
   return data && JSON.parse(data)
 }
 
-export const write = data => {
-  filewrite(fileName, { ...initialValues, ...data })
+export const write = (serverId, data) => {
+  filewrite(fileName(serverId), { ...initialValues, ...data })
 }
 
 export const remove = () => fileRemove(fileName)

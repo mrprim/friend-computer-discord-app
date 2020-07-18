@@ -2,7 +2,7 @@ import { read } from '../data/channels'
 import * as channelTypes from '../constants/channelTypes'
 
 export default async msg => {
-  const channel = read(msg.channel.id) || {}
+  const channel = read(msg.guild.id, msg.channel.id) || {}
 
   if (channel.type === channelTypes.JOIN) {
     msg.reply(`You've been added to the <#${channel.spoilerChatId}> chat`)
