@@ -4,9 +4,10 @@ import { read as readChannels } from '../data/channels'
 import { read as readSettings, write as writeSettings } from '../data/settings'
 import { err } from '../utils/logger'
 
-const isThisBot = msg => msg.member.id === msg.client.user.id
+const isThisBot = msg => msg.author.id === msg.client.user.id
 
-const getSettings = guildId => {
+const getSettings = msg => {
+  const guildId = msg.guild ? msg.guild.id : msg.channel.id
   const settings = readSettings(guildId)
   if (settings) {
     return settings
@@ -16,13 +17,13 @@ const getSettings = guildId => {
 }
 
 export default msg => {
-  const settings = getSettings(msg.guild.id)
+  const settings = getSettings(msg)
 
   if (isThisBot(msg)) {
     return
   }
 
-  const channelInfo = readChannels(msg.guild.id, msg.channel.id) || {}
+  const channelInfo = readChannels(msg.guild && msg.guild.id, msg.channel.id) || {}
 
   let valid = false
   const words = msg.content.split(' ')

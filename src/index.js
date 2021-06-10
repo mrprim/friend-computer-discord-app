@@ -5,7 +5,7 @@ import onReady from './handlers/onReady'
 import onDisconnect from './handlers/onDisconnect'
 import onMessage from './handlers/onMessage'
 
-const client = new Discord.Client({ ws: { intents: ['GUILDS', 'GUILD_MESSAGES'] } })
+const client = new Discord.Client({ ws: { intents: ['GUILDS', 'GUILD_MESSAGES', 'DIRECT_MESSAGES'] } })
 
 client.on('ready', () => onReady(client))
 
